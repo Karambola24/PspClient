@@ -1,0 +1,140 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="PspClient.MainWindow"
+        WindowStartupLocation="CenterScreen"
+        Title="Главное окно" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <!-- Зеленый фон -->
+            <Setter Property="Foreground" Value="White"/>
+            <!-- Белый текст -->
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <!-- Закругление углов -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#45A049"/>
+                    <!-- Темнее при наведении -->
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#2E7D32"/>
+                    <!-- Ещё темнее при нажатии -->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TabControl x:Name="mainTabControl" Grid.Row="0">
+            <!-- Вкладка для Студентов -->
+            <TabItem Header="Студенты">
+                <Grid>
+                    <DataGrid x:Name="StudentDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+                    <Grid Grid.Row="1" Margin="0,10,10,10" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <!-- Для равного отступа слева -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Кнопка "Загрузить студентов" -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Для равного отступа между кнопками -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Кнопка "Добавить студента" -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Для равного отступа между кнопками -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Кнопка "Удалить студента" -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Для равного отступа справа -->
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="Загрузить Студентов" Width="150" Click="BtnShowStudents_Click" Grid.Column="1" Margin="5,0" Height="26"/>
+                        <Button Content="Добавить Студента" Width="150" Click="OpenAddStudentWindow" Grid.Column="3" Margin="5,0" Height="26"/>
+                        <Button Content="Удалить Студента" Width="150" Click="OpenDeleteStudentWindow" Grid.Column="5" Margin="5,0" Height="26"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Дисциплины">
+                <Grid>
+                    <DataGrid x:Name="DisciplineDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+                    <Grid Grid.Row="1" Margin="0,10,10,10" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Загрузить Дисциплины"  Width="170" Click="BtnShowDisciplines_Click" Height="26" Grid.Column="1" Margin="5,0"/>
+                        <Button Content="Добавить Дисциплину" Width="170" Click="OpenAddDisciplineWindow" Grid.Column="3" Margin="5,0" Height="26"/>
+                        <Button Content="Удалить Дисциплину" Width="170" Click="OpenDeleteDisciplineWindow" Grid.Column="5" Margin="5,0" Height="26"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Оценки">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150*"/>
+                        <ColumnDefinition Width="11*"/>
+                        <ColumnDefinition Width="37*"/>
+                        <ColumnDefinition Width="596*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="GradeDataGrid" Grid.ColumnSpan="4"/>
+                    <Grid Margin="0,0,10,10" VerticalAlignment="Bottom" Grid.ColumnSpan="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Загрузить Оценки" Width="170" Grid.Column="1" Margin="5,0" Click="BtnShowGrade_Click" Height="26"/>
+                        <Button Content="Добавить Оценку" Width="170" Click="OpenAddGradeWindow" Grid.Column="3" Margin="5,0" Height="26"/>
+                        <Button Content="Удалить Оценку" Width="150" Click="OpenDeleteGradeWindow" Grid.Column="5" Margin="5,0" Height="26"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Отчет">
+                <StackPanel Margin="20">
+                    <Button x:Name="CalculateTopStudentsButton" Content="Рассчитать процент отличников" Width="250" Margin="0,0,0,10" Click="TopStudentsPercentageButton_Click"/>
+                    <Button x:Name="CalculateStrugglingStudentsButton" Content="Рассчитать процент неуспевающих" Width="250" Margin="0,0,0,20" Click="StrugglingStudentsPercentageButton_Click"/>
+
+                    <TextBlock Text="Процент отличников:" FontWeight="Bold" FontSize="14" />
+                    <TextBlock x:Name="TopPercentageTextBlock" FontSize="14" Margin="0,5,0,20" />
+
+                    <TextBlock Text="Процент неуспевающих:" FontWeight="Bold" FontSize="14" />
+                    <TextBlock x:Name="StrugglingPercentageTextBlock" FontSize="14" Margin="0,5,0,20" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
+
